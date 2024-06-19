@@ -7,14 +7,14 @@ from PIL import Image
 def process_frame(frame):
     # Example: Convert the frame to grayscale
     frame_rgb = frame[:,:512]
-    frame_noise = frame[:,512*7:512*8]
+    frame_noise = frame[:,512*4:512*5]
     processed_frame = np.concatenate((frame_rgb, frame_noise), axis=1)
     return processed_frame
 
 def process_frame_composite(frame):
     # Example: Convert the frame to grayscale
     frame_rgb = frame[:,:512]
-    frame_noise = frame[:,512*7:512*8]
+    frame_noise = frame[:,512*4:512*5]
     
     # Convert frame_noise to a Pillow Image
     noise_img = Image.fromarray(frame_noise)
