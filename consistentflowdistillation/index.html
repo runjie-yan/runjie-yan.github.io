@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Consistent Flow Distillation for Text-to-3D Generation">
+  <meta name="keywords" content="Consistent Flow Distillation for Text-to-3D Generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consistent Flow Distillation for Text-to-3D Generation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <!-- <script src="./static/js/index.js"></script> -->
+
+  <!-- latex symbols -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<!-- begin title -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Consistent Flow Distillation<br>for Text-to-3D Generation</h1>
+          <div class="is-size-4 publication-authors">
+            Anonymous Authors
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end title -->
+
+<!-- begin teaser -->
+<section class="hero teaser" id="teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- <h3 class="title is-4">Visualizing the Multi-View Consistent Gaussian Noise</h3> -->
+      <!-- display 2 video in one line -->
+      <div id="hero-list">
+        <div id="tree">
+          <video id="replay-video" autoplay controls muted loop playsinline>
+            <source src="./assets/videos/noise_map/2_noise.mp4" type="video/mp4">
+          </video>
+          <small>"A zoomed out DSLR photo of a 3d model of an adorable cottage with a thatched roof"</small>
+        </div>
+        <div id="tree">
+          <video id="replay-video" autoplay controls muted loop playsinline>
+            <source src="./assets/videos/noise_map/1_noise.mp4" type="video/mp4">
+          </video>
+          <small>"A Matte painting of a castle made of cheesecake surrounded by a moat made of ice cream"</small>
+        </div>
+      </div>
+      <div id="hero-list">
+        <div id="tree">
+          <video id="replay-video" autoplay controls muted loop playsinline>
+            <source src="./assets/videos/noise_map/0_noise.mp4" type="video/mp4">
+          </video>
+          <small>"A DSLR photo of a car made out of sushi"</small>
+        </div>
+        <div id="tree">
+          <video id="replay-video" autoplay controls muted loop playsinline>
+            <source src="./assets/videos/noise_map/3_noise.mp4" type="video/mp4">
+          </video>
+          <small>"A DSLR photo of an ice cream sundae"</small>
+        </div>
+      </div>
+      <p class="has-text-centered">
+        Left: render RGB image; Right: corresponding noise map.
+      </p><br>
+      <h2 class="subtitle has-text-centered">
+        We can generate high-quality 3D models from a pre-trained image Diffusion Models with the multi-view consistent Gaussian noise. With the consistent noise, the update direction of the 3D model is following the Diffusion PF-ODE, thus the generation results are of high-quality.
+      </h2>
+      <h2 class="subtitle has-text-centered">
+        Pause the video to see the noise in a fixed view: the noise at different pixels are <b>i.i.d. Gaussian Noise</b>.
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- end teaser -->
+
+<!-- begin abstract -->
+<section class="section hero is-light" id="abstract">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Score Distillation Sampling (SDS) has shown great progress in distilling image generation models for 3D generation. However, its maximum-likelihood-seeking behavior significantly degrades the visual quality.
+            Recently, Flow Score Distillation (FSD) tackled this issue by using deterministic noise and annealing timesteps in SDS, and connected this process to Denoise Diffusion Implicit Models (DDIM) sampling for 2D images, while its improvement on 3D generation quality is still limited.
+            In this work, we propose Consistent Flow Distillation (CFD). We focus on the gradient-based sampling perspective and identify that a key in this process is to make the 2D image flow consistent on the 3D object with correct correspondence. To achieve this, we develop a multi-view consistent Gaussian noise on the 3D object, which can be rendered at different views to compute the flow gradient.
+            Our experiments demonstrate that with consistent flow, CFD shows a significant improvement over previous methods in text-to-3D generation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end abstract -->
+
+<!-- begin method -->
+<section class="section hero is-small" id="method">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="hero-body">
+        <div class="container">
+          <h2 class="title is-3">Method Overview</h2>
+          <div class="is-centered">
+            <img src="assets/pdf/main-fig-method-v2-1.png" alt="The CFD updating" width="65%">
+            <p>Overview of CFD update</p>
+            <br>
+            <img src="assets/pdf/main-fig-warp.png" alt="Computing the multiview consistent Gaussian noise" width="50%">
+            <p>Overview of multiview consistent Gaussian Noise \(\tilde{\boldsymbol{\epsilon}}(\theta,\boldsymbol{c})\) computation</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end method -->
+
+<!-- begin reformulation -->
+<section class="section hero is-small is-light" id="reformulation">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="hero-body">
+        <div class="container">
+
+          <h2 class="title is-3 publication-title">Reformulating Diffusion PF-ODE</h2>
+          
+          <div class="content has-text-justified">
+            <div id="hero-list">
+              <div id="htext">
+                <div id="helement">
+                <p>noisy variable \(\boldsymbol{x}_t\)</p>
+                </div>
+                <div id="helement">
+                <p>ground-truth variable \(\hat{\boldsymbol{x}}^{\text{gt}}_t\)</p>
+                </div>
+                <div id="helement">
+                <p><b>clean variable</b> \(\hat{\boldsymbol{x}}^{\text{c}}_t\)</p>
+                </div>
+              </div>
+              <div id="tree">
+                <video id="replay-video" autoplay controls muted loop playsinline width="90%">
+                  <source src="./assets/videos/variable/variable.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+          </div>
+          <div class="is-centered">
+            <p>
+              <small>Visualization of different variables in a DDIM image generation process</small></p><br>
+          </div>
+          <!-- colorA #b25c24 -->
+          <!-- colorB #6b47b2 -->
+          <div class="content has-text-justified">
+            <p>
+              For a forward diffusion process \(p_t(\boldsymbol{x}_t|\boldsymbol{x}_0)=\mathcal{N}(\alpha_t\boldsymbol{x}_0, \sigma_t^2\boldsymbol{I}),\;\boldsymbol{x}_0\sim p_0(\boldsymbol{x}_0)\), a diffusion PF-ODE [1] yields the same marginal distribution as the forward diffusion process at any time \(t\). The PF-ODE defined on the <i>noisy variable</i> \(\boldsymbol{x}_t\) that starts from pure Gaussian Noise \(\boldsymbol{x}_T \sim \mathcal{N}(\boldsymbol{0},\sigma_T^2 \boldsymbol{I})\) takes the form of
+              \[
+              \mathrm{d} \left(\frac{\boldsymbol{x}_t}{\alpha_t}\right) = \textcolor[rgb]{0.7, 0.36, 0.14}{\underbrace{{\mathrm{d} \left(\frac{\sigma_t}{\alpha_t}\right)}}_{-lr}} \cdot \textcolor[rgb]{0.42, 0.28, 0.7}{\underbrace{{\boldsymbol{\epsilon}_\phi(\boldsymbol{x}_t, t, y)}}_{\nabla \mathcal{L}}},
+              \]
+              where \(\boldsymbol{\epsilon}_\phi(\boldsymbol{x}_t, t, y) \approx - \sigma_t \nabla_{\boldsymbol{x}_t} \log p_t(\boldsymbol{x}_t|y)\) is a pre-trained \(\epsilon\)-prediction Diffusion Model. 
+              Following FSD [2], we can change the variable of the PF-ODE to 
+              (i) the <i>ground-truth variable</i> \(\hat{\boldsymbol{x}}^{\text{gt}}_t \triangleq \frac{\boldsymbol{x}_t-\sigma_t \boldsymbol{\epsilon}_\phi(\boldsymbol{x}_t, t, y)}{\alpha_t}\), which is also known as the sample-prediction of the Diffusion Model, or 
+              (ii) the <i>clean variable</i> \(\hat{\boldsymbol{x}}^{\text{c}}_t \triangleq \frac{\boldsymbol{x}_t-\sigma_t \tilde{\boldsymbol{\epsilon}}}{\alpha_t}\), where \(\tilde{\boldsymbol{\epsilon}}\) is a <b>constant</b> for each PF-ODE trajectory and equals the initial noise \(\frac{\boldsymbol{x}_T}{\sigma_T}\). 
+              Notably, under such definition, 
+              (i) \(\hat{\boldsymbol{x}}^{\text{c}}_t\) are visually non-noisy images for all \(t \in [0,T]\).
+              (ii) \(\hat{\boldsymbol{x}}^{\text{c}}_t\) achieves zero initialization \(\hat{\boldsymbol{x}}^{\text{c}}_T=\boldsymbol{0}\), which is consistent with the NeRF initialization. And 
+              (iii) the end point of the new ODE trajectory \(\hat{\boldsymbol{x}}^{\text{c}}_0 = \boldsymbol{x}_0\) is a sample from the target distribution \(p_0(\boldsymbol{x}_0)\) and is completely determined by the constant \(\tilde{\boldsymbol{\epsilon}}\) (thus \(\tilde{\boldsymbol{\epsilon}}\) can be viewed as the identity of the trajectory).
+              The reformulated PF-ODE on the clean variable \(\hat{\boldsymbol{x}}^{\text{c}}_t\) is 
+              \[
+              \mathrm{d} \hat{\boldsymbol{x}}^{\text{c}}_t = \textcolor[rgb]{0.7, 0.36, 0.14}{\underbrace{{\mathrm{d} \left(\frac{\sigma_t}{\alpha_t}\right)}}_{-lr}} \cdot \textcolor[rgb]{0.42, 0.28, 0.7}{\underbrace{\left(\boldsymbol{\epsilon}_\phi(\alpha_t \hat{\boldsymbol{x}}^{\text{c}}_t + \sigma_t \tilde{\boldsymbol{\epsilon}}, t, y)-\tilde{\boldsymbol{\epsilon}}\right)}_{\nabla \mathcal{L}}},
+              \]
+              which we also refer to as the <i>clean flow</i>. We further showed that the <b>SDE</b> presented by Song et al. [1] also has a similar form as the above equation, which implies the change-of-variable is potentially general (Refer to paper for details). 
+              In order to use Diffusion PF-ODE as a guidance for 3D generation, we can directly replace the clean variable \(\hat{\boldsymbol{x}}^{\text{c}}_t\) with the rendered image \(\boldsymbol{g}_\theta(\boldsymbol{c})\) at camera view \(\boldsymbol{c}\) from a 3D representation \(\theta\) by \(\hat{\boldsymbol{x}}^{\text{c}}_t = \boldsymbol{g}_\theta(\boldsymbol{c})\). 
+              (It's also reasonable to replace the ground-truth variable \(\hat{\boldsymbol{x}}^{\text{gt}}_t\), but this faces difficulties as discussed in Appendix of the paper.)
+              We use the rendered images from the 3D representation \(\theta\) at optimization time \(\tau\) to simulate the clean variable \(\hat{\boldsymbol{x}}^{\text{c}}_t\) at diffusion timestep \(t(\tau)\), where \(t(\tau)\) is a predefined monotonically decreasing timestep annealing function. 
+              By mimicking \(\mathrm{d} (\sigma_t/\alpha_t)\) with the learning rate of an optimizer and seeing \(\boldsymbol{\epsilon}_\phi(\alpha_t \hat{\boldsymbol{x}}^{\text{c}}_t + \sigma_t \tilde{\boldsymbol{\epsilon}}, t, y)-\tilde{\boldsymbol{\epsilon}}\) as the gradient of the loss, we can update the 3D representation \(\theta\) by propogating the gradient of the loss through Jacobian matrix of the rendering function \(\boldsymbol{g}_\theta\):
+              \[
+              \nabla_\theta \mathcal{L}_{\text{CFD}}(\theta) = \mathbb{E}_{\boldsymbol{c}} \left[\textcolor[rgb]{0.42, 0.28, 0.7}{\big(\boldsymbol{\epsilon}_\phi(\alpha_t \boldsymbol{g}_\theta(\boldsymbol{c}) + \sigma_t \tilde{\boldsymbol{\epsilon}}, t(\tau), y)-\tilde{\boldsymbol{\epsilon}}\big)} \frac{\partial \boldsymbol{g}_\theta(\boldsymbol{c})}{\partial \theta} \right].
+              \]
+              In this formula, \(\tilde{\boldsymbol{\epsilon}} = \tilde{\boldsymbol{\epsilon}}(\theta,\boldsymbol{c})\) is a determined view and object surface dependent noise function since we are not expecting the flow at different views to be the same. Moreover, since we are random sampling the camera views \(\boldsymbol{c}\) in the optimization process, the updates computed from other views could interfere with the updates computed from the current view. 
+              To alleviate this issue, we propose to use a multi-view consistent Gaussian noise \(\tilde{\boldsymbol{\epsilon}}\) that aligns the Gaussian noise texture on the surface of the object. This ensures that updates computed from different views are consistent with those computed from the current view to some extent.
+              <br>
+              <br> 
+              By using the clean flow, we are disentangling the noise from the noisy variable \(\boldsymbol{x}_t\) and we believe this is essential for using image PF-ODE as a 3D guidance. Clean images and Gaussian noise follow different transport equations. While clean images can be transported using a common 3D representation, Gaussian noise needs be transported using the Noise Transport Equation [3], which is incompatible with common 3D representations.
+            </p>
+            <br>
+            
+            <div id="hero-list">
+              <div id="tree">
+                <img src="assets/videos/variable/noisy_imgs.png" alt="noisy var" width="80%">
+                <small>noisy variable \(\boldsymbol{x}_t\)</small>
+              </div>
+              <div id="tree">
+                <img src="assets/videos/variable/imgs.png" alt="clean var" width="80%">
+                <small><b>clean variable</b> \(\hat{\boldsymbol{x}}^{\text{c}}_t\)</small>
+              </div>
+            </div>
+
+            <p class="has-text-centered">
+              Visualization of different variable spaces in DDIM image generation processes with random prompts and at random timesteps
+            </p><br>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end reformulation -->
+
+<!-- begin gallery -->
+<section class="section is-small hero" id="gallery">
+  <div class="container is-max-desktop">
+      <div class="hero-body">
+        <div class="container">
+          
+          <h2 class="title is-3 publication-title has-text-centered">Diverse Results</h2>
+          <!-- cfd -->
+          <div id="hero-list">
+            <div id="tree">
+              <video id="replay-video" autoplay controls muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/raccon_composite.mp4" type="video/mp4">
+              </video>
+              <small>"A cowboy raccoon with a lasso"</small>
+            </div>
+          </div>
+          <div id="hero-list">
+            <div id="tree">
+              <video id="replay-video" autoplay controls muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/mahoushaojiu_composite.mp4" type="video/mp4">
+              </video>
+              <small>"A manga magical girl with magic wand"</small>
+            </div>
+          </div>
+          <!-- v-cfd -->
+          <div id="hero-list">
+            <div id="tree">
+              <video id="replay-video" autoplay controls muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/v_owl_composite.mp4" type="video/mp4">
+              </video>
+              <small>"A steampunk owl with mechanical wings"<sup>*</sup></small>
+            </div>
+          </div>
+          <div id="hero-list">
+            <div id="tree">
+              <video id="replay-video" autoplay controls muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/v_bambo_composite.mp4" type="video/mp4">
+              </video>
+              <small>"A samurai panda with a bamboo sword"<sup>*</sup></small>
+            </div>
+          </div>
+          <br><br>
+
+          <h2 class="title is-3 publication-title has-text-centered">Text-to-3D Gallery</h2>
+          <!-- cfd -->
+          <div id="hero-list">
+            <div id="tree">
+              <video id="replay-video" autoplay controls muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/parrot_0.mp4" type="video/mp4">
+              </video>
+              <small>"A parrot"</small>
+            </div>
+            <div id="tree">
+              <video id="replay-video" autoplay controls muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/baseball_0.mp4" type="video/mp4">
+              </video>
+              <small>"A baseball player rabbit with a bat"</small>
+            </div>
+          </div>
+          <div id="hero-list">
+            <div id="tree">
+              <video id="replay-video" autoplay controls muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/panda_0.mp4" type="video/mp4">
+              </video>
+              <small>"A samurai panda in traditional armor"</small>
+            </div>
+            <div id="tree">
+              <video id="replay-video" autoplay controls muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/hedgedog_0.mp4" type="video/mp4">
+              </video>
+              <small>"A painter hedgehog with a palette"</small>
+            </div>
+          </div>
+          <div id="hero-list">
+            <div id="tree">
+              <video id="replay-video" autoplay controls muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/mane_0.mp4" type="video/mp4">
+              </video>
+              <small>"A robotic unicorn with holographic mane"</small>
+            </div>
+            <div id="tree">
+              <video id="replay-video" autoplay controls muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/vampire_0.mp4" type="video/mp4">
+              </video>
+              <small>"A mecha vampire girl chibi"</small>
+            </div>
+          </div>
+          <!-- v-cfd -->
+          <div id="hero-list">
+            <div id="tree">
+              <video id="replay-video" autoplay controls muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/v_fox_1.mp4" type="video/mp4">
+              </video>
+              <small>"A knight fox in shining armor"<sup>*</sup></small>
+            </div>
+            <div id="tree">
+              <video id="replay-video" autoplay controls muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/v_spellbook_0.mp4" type="video/mp4">
+              </video>
+              <small>"A wizard frog with a spellbook"<sup>*</sup></small>
+            </div>
+          </div>
+          <div id="hero-list">
+            <div id="tree">
+              <video id="replay-video" autoplay controls muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/v_house.mp4" type="video/mp4">
+              </video>
+              <small>"Medieval House, grass, medieval, vines, farm, middleage, medieval-house, stone, house, home, wood, medieval-decor"<sup>*</sup></small>
+            </div>
+            <div id="tree">
+              <video id="replay-video" autoplay controls muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/v_camera_0.mp4" type="video/mp4">
+              </video>
+              <small>"DSLR Camera, photography, dslr, camera, noobie, boxmodeling, maya"<sup>*</sup></small>
+            </div>
+          </div>
+          <br><br>
+          
+          
+          <!-- more samples -->
+          <small>Note: Samples in Gallery sections are generated using the 2 stage pipline. Stage-1: CFD distilling MVDream (a text-to-multiview image diffusion model); Stage-2: CFD or V-CFD (with <sup>*</sup>) distilling Stable Diffusion. </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end gallery -->
+
+<!-- begin reference -->
+<section class="hero is-small" id="reference">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">References</h2>
+      <!-- Side by Side Bilinear interpolation, Ours -->
+      <div>
+        <p>
+          [1] Song, Y., Sohl-Dickstein, J., Kingma, D.P., Kumar, A., Ermon, S. and Poole, B., 2020, October. Score-Based Generative Modeling through Stochastic Differential Equations. In <i>International Conference on Learning Representations</i>.<br>
+          [2] Yan, R., Wu, K. and Ma, K., 2024. Flow Score Distillation for Diverse Text-to-3D Generation. <i>arXiv preprint arXiv:2405.10988</i>.<br>
+          [3] Chang, P., Tang, J., Gross, M. and Azevedo, V.C., 2023, October. How I Warped Your Noise: a Temporally-Correlated Noise Prior for Diffusion Models. In <i>The Twelfth International Conference on Learning Representations</i>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end reference -->
+</body>
+</html>
