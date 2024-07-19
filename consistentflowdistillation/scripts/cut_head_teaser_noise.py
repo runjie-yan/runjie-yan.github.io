@@ -68,14 +68,16 @@ def composite_edit_video(input_video_path, input_video_path_noise, output_video_
             rgb, noise = rgb[:,:1024], noise[:,1024:2048]
             percentage = f/120
             f += 1
-            if i < 2:
+            if i == 0:
+                processed_frames.append(cv2.addWeighted(noise, 1 - percentage, rgb, percentage, 0))
+            elif i==1:
                 processed_frames.append(rgb)
             elif i==2:
-                processed_frames.append(cv2.addWeighted(rgb, 1 - percentage, noise, percentage, 0))
+                processed_frames.append(rgb)
             elif i==3:
-                processed_frames.append(noise)
+                processed_frames.append(cv2.addWeighted(rgb, 1 - percentage, noise, percentage, 0))
             elif i==4:
-                processed_frames.append(cv2.addWeighted(noise, 1 - percentage, rgb, percentage, 0))
+                processed_frames.append(noise)
         
         
     # close the reader
@@ -87,8 +89,8 @@ def composite_edit_video(input_video_path, input_video_path_noise, output_video_
         
     
 # Example usage
-input_teaser = './assets/videos/teaser'
-output_teaser = './assets/videos/head_teasern'
+input_teaser = './assets/videos/teaser_img/teaser'
+output_teaser = './assets/videos/head_teaser'
 os.makedirs(output_teaser, exist_ok=True)
 for video_name in sorted(os.listdir(input_teaser)):
     if video_name.endswith('noise.mp4'):
