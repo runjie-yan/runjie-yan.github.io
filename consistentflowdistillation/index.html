@@ -70,21 +70,45 @@
       <!-- display 2 video in one line -->
       <div id="hero-list">
         <div id="tree">
-          <video id="replay-video" autoplay muted loop playsinline>
+          <video id="head-video-1" autoplay muted loop playsinline>
             <source src="./assets/videos/head_teaser/ship.mp4" type="video/mp4">
           </video>
         </div>
         <div id="tree">
-          <video id="replay-video" autoplay muted loop playsinline>
+          <video id="head-video-2" autoplay muted loop playsinline>
             <source src="./assets/videos/head_teaser/cat.mp4" type="video/mp4">
           </video>
         </div>
         <div id="tree">
-          <video id="replay-video" autoplay muted loop playsinline>
+          <video id="head-video-3" autoplay muted loop playsinline>
             <source src="./assets/videos/head_teaser/spacestation.mp4" type="video/mp4">
           </video>
         </div>
       </div>
+      <script>
+        const video1 = document.getElementById('head-video-1');
+        const video2 = document.getElementById('head-video-2');
+        const video3 = document.getElementById('head-video-3');
+
+        let videosLoaded = 0;
+
+        function checkAllVideosLoaded() {
+            videosLoaded++;
+            if (videosLoaded === 3) {
+                playAllVideos();
+            }
+        }
+
+        function playAllVideos() {
+            video1.play();
+            video2.play();
+            video3.play();
+        }
+
+        video1.oncanplaythrough = checkAllVideosLoaded;
+        video2.oncanplaythrough = checkAllVideosLoaded;
+        video3.oncanplaythrough = checkAllVideosLoaded;
+    </script>
       <!-- <p class="has-text-centered">
         Left: render RGB image; Right: corresponding noise map.
       </p><br> -->
