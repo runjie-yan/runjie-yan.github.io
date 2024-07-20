@@ -73,18 +73,28 @@
           <video id="head-video-1" muted loop playsinline>
             <source src="./assets/videos/head_teaser/ship.mp4" type="video/mp4">
           </video>
+          <small>"A pirate galleon with <div class="text-box" onclick="showDetails(event, 'details1')">...</div>"</small>
+          <div id="details1" class="floating-box">
+              <p>"A pirate galleon with a bioluminescent hull
+                that glows faintly in the dark ocean waters,
+                illuminating the ship's intricate carvings and
+                sails as it silently navigates the wave"</p>
+          </div>
         </div>
         <div id="tree">
           <video id="head-video-2" muted loop playsinline>
             <source src="./assets/videos/head_teaser/cat.mp4" type="video/mp4">
           </video>
+          <small>"A cute cat covered by snow"</small>
         </div>
         <div id="tree">
           <video id="head-video-3" muted loop playsinline>
             <source src="./assets/videos/head_teaser/spacestation.mp4" type="video/mp4">
           </video>
+          <small>"A futuristic space station"</small>
         </div>
       </div>
+    
       <script>
         const video1 = document.getElementById('head-video-1');
         const video2 = document.getElementById('head-video-2');
@@ -108,6 +118,29 @@
         video1.oncanplaythrough = checkAllVideosLoaded;
         video2.oncanplaythrough = checkAllVideosLoaded;
         video3.oncanplaythrough = checkAllVideosLoaded;
+
+        function showDetails(event, detailsId) {
+          const details = document.getElementById(detailsId);
+          const isVisible = details.style.display === 'block';
+          
+          // Hide all floating boxes
+          const allDetails = document.querySelectorAll('.floating-box');
+          allDetails.forEach(detail => detail.style.display = 'none');
+          
+          // Toggle the clicked box visibility
+            if (!isVisible) {
+              details.style.display = 'block';
+              details.style.left = `${event.clientX + 10}px`; // Use clientX for better positioning
+              details.style.top = `${event.clientY + 10}px`;  // Use clientY for better positioning
+          }
+      }
+
+      document.addEventListener('click', function(event) {
+          if (!event.target.classList.contains('text-box') && !event.target.classList.contains('floating-box')) {
+              const allDetails = document.querySelectorAll('.floating-box');
+              allDetails.forEach(detail => detail.style.display = 'none');
+          }
+      });
     </script>
       <!-- <p class="has-text-centered">
         Left: render RGB image; Right: corresponding noise map.
@@ -429,15 +462,14 @@
           <div class="select is-3 is-rounded">
             <select id="sect-2-sample-select" onchange="select_sample(this);">
               <option value="stone_castle" id="sect-2-sample-opt-stone_castle"> Stone Castle </option>
-              <option value="cottage" id="sect-2-sample-opt-cottage"> Cottage </option>
               <option value="cheesecake_castle" id="sect-2-sample-opt-cheesecake_castle"> Cheesecake Castle </option>
-              <option value="victorian_house" id="sect-2-sample-opt-victorian_house"> Victorian House </option>
-              <option value="icecream" id="sect-2-sample-opt-icecream"> Icecream </option>
-              <option value="tower" id="sect-2-sample-opt-tower"> Tower </option>
-              <option value="chair" id="sect-2-sample-opt-chair"> Chair </option>
               <option value="strawberry" id="sect-2-sample-opt-strawberry"> Strawberry </option>
+              <option value="icecream" id="sect-2-sample-opt-icecream"> Icecream </option>
               <option value="pineapple" id="sect-2-sample-opt-pineapple"> Pineapple </option>
+              <option value="cottage" id="sect-2-sample-opt-cottage"> Cottage </option>
+              <option value="chair" id="sect-2-sample-opt-chair"> Chair </option>
               <option value="rose" id="sect-2-sample-opt-rose"> Rose </option>
+              <option value="tower" id="sect-2-sample-opt-tower"> Tower </option>
             </select>
           </div>
         </div>
