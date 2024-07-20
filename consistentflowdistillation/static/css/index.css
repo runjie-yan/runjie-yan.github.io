@@ -164,6 +164,23 @@ body {
   text-align: center;
   align-items: stretch;
 }
+
+
+.text-box {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+  display: inline-block;
+}
+.floating-box {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1000;
+}
+
 .hero-body #hero-list #tree{
   margin: 0.5%;
   display: flex;
