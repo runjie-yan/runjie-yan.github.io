@@ -53,11 +53,61 @@
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">Consistent Flow Distillation<br>for Text-to-3D Generation</h1>
           <div class="is-size-4 publication-authors">
-            Anonymous Authors
+            <span class="author-block">
+              <a href="https://runjie-yan.github.io/">Runjie Yan</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://yinboc.github.io/">Yinbo Chen</a><sup>1</sup>,</span>
+            <span class="author-block">
+                <a href="https://xiaolonw.github.io/">Xiaolong Wang</a><sup>1</sup></span>
           </div>
+          <div class="is-size-4 publication-authors">
+            <sup>1</sup>UC San Diego
+            </div>
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="column has-text-centered">
+    <div class="publication-links">
+      <span class="link-block">
+        <a href=""
+           class="external-link button is-normal is-rounded is-dark">
+          <span class="icon">
+              <i class="fas fa-file-pdf"></i>
+          </span>
+          <span>Paper</span>
+        </a>
+      </span>
+      <span class="link-block">
+        <a href=""
+           class="external-link button is-normal is-rounded is-dark">
+          <span class="icon">
+              <i class="ai ai-arxiv"></i>
+          </span>
+          <span>ArXiv</span>
+        </a>
+      </span>
+      <span class="link-block">
+        <a href="./assets/bib.txt"
+           class="external-link button is-normal is-rounded is-dark">
+          <span class="icon">
+              <i class="fas fa-file-pdf"></i>
+          </span>
+          <span>BiBTex</span>
+        </a>
+      </span>
+      <span class="link-block">
+        <a href="https://github.com/runjie-yan/ConsistentFlowDistillation"
+           class="external-link button is-normal is-rounded is-dark">
+          <span class="icon">
+              <i class="fab fa-github"></i>
+          </span>
+          <span>Code</span>
+          </a>
+      </span>
+    </div>
+
   </div>
 </section>
 <!-- end title -->
@@ -74,12 +124,6 @@
             <source src="./assets/videos/head_teaser/ship.mp4" type="video/mp4">
           </video>
           <small>"A pirate galleon with <div class="text-box" onclick="showDetails(event, 'details1')">...</div>"</small>
-          <div id="details1" class="floating-box">
-              <p>"A pirate galleon with a bioluminescent hull
-                that glows faintly in the dark ocean waters,
-                illuminating the ship's intricate carvings and
-                sails as it silently navigates the wave"</p>
-          </div>
         </div>
         <div id="tree">
           <video id="head-video-2" muted loop playsinline>
@@ -94,30 +138,42 @@
           <small>"A futuristic space station"</small>
         </div>
       </div>
+      <div id="details1" class="floating-box">
+          <p>"A pirate galleon with a bioluminescent hull
+            that glows faintly in the dark ocean waters,
+            illuminating the ship's intricate carvings and
+            sails as it silently navigates the wave"</p>
+      </div>
     
       <script>
-        const video1 = document.getElementById('head-video-1');
-        const video2 = document.getElementById('head-video-2');
-        const video3 = document.getElementById('head-video-3');
+        document.addEventListener("DOMContentLoaded", function() {
+          const video1 = document.getElementById('head-video-1');
+          const video2 = document.getElementById('head-video-2');
+          const video3 = document.getElementById('head-video-3');
 
-        let videosLoaded = 0;
+          let videosLoaded = 0;
 
-        function checkAllVideosLoaded() {
-            videosLoaded++;
-            if (videosLoaded === 3) {
-                playAllVideos();
-            }
-        }
+          function checkAllVideosLoaded() {
+              videosLoaded++;
+              if (videosLoaded === 3) {
+                  playAllVideos();
+              }
+          }
 
-        function playAllVideos() {
-            video1.play();
-            video2.play();
-            video3.play();
-        }
+          function playAllVideos() {
+              video1.play();
+              video2.play();
+              video3.play();
+          }
 
-        video1.oncanplaythrough = checkAllVideosLoaded;
-        video2.oncanplaythrough = checkAllVideosLoaded;
-        video3.oncanplaythrough = checkAllVideosLoaded;
+          if (video1 && video2 && video3) {
+            video1.addEventListener('loadeddata', checkAllVideosLoaded);
+            video2.addEventListener('loadeddata', checkAllVideosLoaded);
+            video3.addEventListener('loadeddata', checkAllVideosLoaded);
+          } else {
+              console.error("One or more video elements are not found.");
+          }
+        });
 
         function showDetails(event, detailsId) {
           const details = document.getElementById(detailsId);
@@ -130,8 +186,8 @@
           // Toggle the clicked box visibility
             if (!isVisible) {
               details.style.display = 'block';
-              details.style.left = `${event.clientX + 10}px`; // Use clientX for better positioning
-              details.style.top = `${event.clientY + 10}px`;  // Use clientY for better positioning
+              details.style.left = `${event.clientX}px`; // Use clientX for better positioning
+              details.style.top = `${event.clientY}px`;  // Use clientY for better positioning
           }
       }
 
@@ -213,8 +269,78 @@
 </section>
 <!-- end method -->
 
+<!-- begin compare -->
+<!-- js script for this section is modifed from https://github.com/sds-bridge/sds-bridge.github.io -->
+<section class="section hero is-small is-light" id="comprision">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+            <div class="container has-text-centered">
+              <h2 class="title is-2 publication-title" style="font-size:1.7em;">Coarse Stage NeRFs Comparison</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container is-max-desktop">
+        <div class="container has-text-centered">
+          <span style="font-size:1.1em;">Select a sample to view.</span><br><br>
+          <div class="select is-3 is-rounded">
+            <select id="sect-2-sample-select" onchange="select_sample(this);">
+              <option value="stone_castle" id="sect-2-sample-opt-stone_castle"> Stone Castle </option>
+              <option value="cheesecake_castle" id="sect-2-sample-opt-cheesecake_castle"> Cheesecake Castle </option>
+              <option value="strawberry" id="sect-2-sample-opt-strawberry"> Strawberry </option>
+              <option value="icecream" id="sect-2-sample-opt-icecream"> Icecream </option>
+              <option value="pineapple" id="sect-2-sample-opt-pineapple"> Pineapple </option>
+              <option value="cottage" id="sect-2-sample-opt-cottage"> Cottage </option>
+              <option value="tower" id="sect-2-sample-opt-tower"> Tower </option>
+              <option value="chair" id="sect-2-sample-opt-chair"> Chair </option>
+              <option value="chest" id="sect-2-sample-opt-chair"> Chest </option>
+              <option value="rose" id="sect-2-sample-opt-rose"> Rose </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <br><br>
+      <div class="container is-max-desktop has-text-centered">
+          <div class="columns is-centered">
+              <div class="column is-5">
+                  <p id="method-SDS">VSD</p>
+              </div>
+              <div class="column is-5">
+                  <p id="method-CFD">CFD (ours)</p>
+              </div>
+          </div>
+      </div>
+      <div class="container is-max-desktop">
+      <div class="columns is-centered">
+          <div class="column is-5">
+              <video width="512" onended="this.currentTime = 0; this.play();" autoplay="" muted="" playsinline="" id="sect-2-sample-0">
+                <source src="./assets/videos/samples/vsd/stone_castle.mp4" type="video/mp4">
+              </video>
+          </div>
+          <div class="column is-5">
+              <video width="512" onended="this.currentTime = 0; this.play();" autoplay="" muted="" playsinline="" id="sect-2-sample-2">
+                <source src="./assets/videos/samples/cfd/stone_castle.mp4" type="video/mp4">
+              </video>
+          </div>
+      </div>
+      <div class="container is-max-desktop">
+          <div class="columns is-centered is-vcentered">
+            <div class="container has-text-centered">
+              <div class="column ">
+                  <span style="font-size:1.1em;" id="sect-2-prompt"> A highly detailed DSLR photo of a 3d model of historical stone castle
+                  </span>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+</section>
+<!-- end compare -->
+
 <!-- begin reformulation -->
-<section class="section hero is-small is-light" id="reformulation">
+<section class="section hero is-small" id="reformulation">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="hero-body">
@@ -306,7 +432,7 @@
 <!-- end reformulation -->
 
 <!-- begin gallery -->
-<section class="section is-small hero" id="gallery">
+<section class="section is-small hero is-light" id="gallery">
   <div class="container is-max-desktop">
       <div class="hero-body">
         <div class="container">
@@ -435,7 +561,7 @@
           
           
           <!-- more samples -->
-          <small>Note: Samples in Gallery sections are generated using the 2 stage pipline. Stage-1: CFD distilling MVDream (a text-to-multiview image diffusion model); Stage-2: CFD  distilling Stable Diffusion. </small>
+          <small>Note: NeRF samples in the Gallery sections are generated using the 2 stage pipline. Stage-1: CFD distilling MVDream (a text-to-multiview image diffusion model); Stage-2: CFD distilling Stable Diffusion. NeRF samples in the Comparison section are generated by only distilling Stable Diffusion.</small>
         </div>
       </div>
     </div>
@@ -443,74 +569,6 @@
 </section>
 <!-- end gallery -->
 
-<!-- begin compare -->
-<!-- js script for this section is modifed from https://github.com/sds-bridge/sds-bridge.github.io -->
-<section class="section hero is-small is-light" id="comprision">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <div class="columns is-centered">
-        <div class="column is-full-width">
-            <div class="container has-text-centered">
-              <h2 class="title is-2 publication-title" style="font-size:1.7em;">Coarse Stage NeRFs Comparison</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="container is-max-desktop">
-        <div class="container has-text-centered">
-          <span style="font-size:1.1em;">Select a sample to view.</span><br><br>
-          <div class="select is-3 is-rounded">
-            <select id="sect-2-sample-select" onchange="select_sample(this);">
-              <option value="stone_castle" id="sect-2-sample-opt-stone_castle"> Stone Castle </option>
-              <option value="cheesecake_castle" id="sect-2-sample-opt-cheesecake_castle"> Cheesecake Castle </option>
-              <option value="strawberry" id="sect-2-sample-opt-strawberry"> Strawberry </option>
-              <option value="icecream" id="sect-2-sample-opt-icecream"> Icecream </option>
-              <option value="pineapple" id="sect-2-sample-opt-pineapple"> Pineapple </option>
-              <option value="cottage" id="sect-2-sample-opt-cottage"> Cottage </option>
-              <option value="chair" id="sect-2-sample-opt-chair"> Chair </option>
-              <option value="rose" id="sect-2-sample-opt-rose"> Rose </option>
-              <option value="tower" id="sect-2-sample-opt-tower"> Tower </option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <br><br>
-      <div class="container is-max-desktop has-text-centered">
-          <div class="columns is-centered">
-              <div class="column is-5">
-                  <p id="method-SDS">VSD</p>
-              </div>
-              <div class="column is-5">
-                  <p id="method-CFD">CFD (ours)</p>
-              </div>
-          </div>
-      </div>
-      <div class="container is-max-desktop">
-      <div class="columns is-centered">
-          <div class="column is-5">
-              <video width="512" onended="this.currentTime = 0; this.play();" autoplay="" muted="" playsinline="" id="sect-2-sample-0">
-                <source src="./assets/videos/samples/vsd/stone_castle.mp4" type="video/mp4">
-              </video>
-          </div>
-          <div class="column is-5">
-              <video width="512" onended="this.currentTime = 0; this.play();" autoplay="" muted="" playsinline="" id="sect-2-sample-2">
-                <source src="./assets/videos/samples/cfd/stone_castle.mp4" type="video/mp4">
-              </video>
-          </div>
-      </div>
-      <div class="container is-max-desktop">
-          <div class="columns is-centered is-vcentered">
-            <div class="container has-text-centered">
-              <div class="column ">
-                  <span style="font-size:1.1em;" id="sect-2-prompt"> A highly detailed DSLR photo of a 3d model of historical stone castle
-                  </span>
-                </div>
-              </div>
-          </div>
-      </div>
-    </div>
-</section>
-<!-- end compare -->
 
 <!-- begin reference -->
 <section class="hero is-small" id="reference">

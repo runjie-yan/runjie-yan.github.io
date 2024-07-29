@@ -22,7 +22,7 @@ function select_sample(selectElement) {
 // Function to return description based on selected sample
 function getPrompt(selectedValue) {
     const prompts = {
-        "stone_castle": "A highly detailed DSLR photo of a 3d model of historical stone castle",    
+        "stone_castle": "A highly detailed DSLR photo of a 3d model of historical stone castle",
         "cottage": "A zoomed out DSLR photo of 3d model of an adorable cottage with a thatched roof, high resolution, sharp",
         "cheesecake_castle": "A Matte painting of a castle made of cheesecake surrounded by a moat made of ice cream",
         "victorian_house": "A detailed photo of a 3d model of classic Victorian house, high resolution, sharp",
@@ -31,7 +31,8 @@ function getPrompt(selectedValue) {
         "chair": "A wooden chair, detailed, high resolution, high quality, sharp",
         "strawberry": "A ripe strawberry",
         "pineapple": "A pineapple, detailed, high resolution, high quality, sharp",
-        "rose": "A close-up photo of a single red rose",    
+        "rose": "A close-up photo of a single red rose",
+        "chest": "A DSLR photo of 3D model of a treasure chest full of gold coins and jewels, high resolution, sharp",
     };
 
     return prompts[selectedValue] || "Description not available.";
