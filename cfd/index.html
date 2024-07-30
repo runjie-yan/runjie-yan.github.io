@@ -114,6 +114,7 @@
 
 <!-- begin teaser -->
 <section class="hero teaser" id="teaser">
+  
   <div class="container is-max-desktop">
     <div class="hero-body">
       <!-- <h3 class="title is-4">Visualizing the Multi-View Consistent Gaussian Noise</h3> -->
@@ -138,13 +139,14 @@
           <small>"A futuristic space station"</small>
         </div>
       </div>
-      <div id="details1" class="floating-box">
-          <p>"A pirate galleon with a bioluminescent hull
-            that glows faintly in the dark ocean waters,
-            illuminating the ship's intricate carvings and
-            sails as it silently navigates the wave"</p>
-      </div>
     
+      <div id="details1" class="floating-box">
+        <p>"A pirate galleon with a bioluminescent hull
+          that glows faintly in the dark ocean waters,
+          illuminating the ship's intricate carvings and
+          sails as it silently navigates the wave"</p>
+      </div>
+      
       <script>
         document.addEventListener("DOMContentLoaded", function() {
           const video1 = document.getElementById('head-video-1');
@@ -186,8 +188,8 @@
           // Toggle the clicked box visibility
             if (!isVisible) {
               details.style.display = 'block';
-              details.style.left = `${event.clientX}px`; // Use clientX for better positioning
-              details.style.top = `${event.clientY}px`;  // Use clientY for better positioning
+              // details.style.left = `${event.clientX}px`; // Use clientX for better positioning
+              // details.style.top = `${event.clientY}px`;  // Use clientY for better positioning
           }
       }
 

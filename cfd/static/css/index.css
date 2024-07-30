@@ -172,6 +172,7 @@ body {
   text-decoration: underline;
   display: inline-block;
 }
+
 .floating-box {
   display: none;
   position: absolute;
@@ -179,6 +180,9 @@ body {
   border: 1px solid #ccc;
   padding: 10px;
   z-index: 1000;
+  width: 500px;
+  justify-content: center;
+  align-items: center;
 }
 
 .hero-body #hero-list #tree{
