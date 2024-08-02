@@ -48,7 +48,8 @@ combined_video = CompositeVideoClip(
         video3,
     ], 
     size=(final_video_width, final_video_height),
-    bg_color=(245,245,245)
+    # bg_color=(245,245,245)
+    bg_color=(255,255,255)
 )
 
 # Set the duration of the combined video to the longest individual video duration
