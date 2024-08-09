@@ -4,16 +4,19 @@ function select_sample(selectElement) {
     // Define the paths for each method
     const paths = {
         "VSD": `./assets/videos/samples/vsd/${selectedValue}.mp4`,
+        "SDS": `./assets/videos/samples/sds/${selectedValue}.mp4`,
         "CFD": `./assets/videos/samples/cfd/${selectedValue}.mp4`
     };
 
     // Update the source of each video element
     document.querySelector("#sect-2-sample-0 source").src = paths["VSD"];
     document.querySelector("#sect-2-sample-2 source").src = paths["CFD"];
+    document.querySelector("#sect-2-sample-1 source").src = paths["SDS"];
 
     // Reload the video elements to reflect the new sources
     document.getElementById("sect-2-sample-0").load();
     document.getElementById("sect-2-sample-2").load();
+    document.getElementById("sect-2-sample-1").load();
 
     // Update the description
     document.getElementById("sect-2-prompt").innerText = getPrompt(selectedValue);
