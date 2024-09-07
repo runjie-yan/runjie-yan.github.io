@@ -27,8 +27,8 @@ def edit_video(input_video_path, output_video_path):
             processed_frame_rgb, processed_frame_normal = process_frame(frame)
             
             # Save the processed frames as a image
-            imageio.imwrite(f'{output_video_path}_{i}_rgb.png', processed_frame_rgb)
-            imageio.imwrite(f'{output_video_path}_{i}_normal.png', processed_frame_normal)
+            imageio.imwrite(f'{output_video_path[:-4]}_{i}_rgb.png', processed_frame_rgb)
+            imageio.imwrite(f'{output_video_path[:-4]}_{i}_normal.png', processed_frame_normal)
 
     # Close the reader
     reader.close()
@@ -41,6 +41,6 @@ os.makedirs(output_teaser, exist_ok=True)
 for video_name in sorted(os.listdir(input_teaser)):
     input_video_path = os.path.join(input_teaser, video_name)
     output_video_path = os.path.join(output_teaser, video_name)
-    if os.path.exists(output_video_path):
+    if os.path.exists(f'{output_video_path[:-4]}_0_rgb.png'):
         continue
     edit_video(input_video_path, output_video_path)
