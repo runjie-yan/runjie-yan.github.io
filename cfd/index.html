@@ -215,10 +215,9 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Score Distillation Sampling (SDS) has shown great progress in distilling image generation models for 3D generation. However, its maximum-likelihood-seeking behavior significantly degrades the visual quality.
-            Recently, Flow Score Distillation (FSD) tackled this issue by using deterministic noise and annealing timesteps in SDS, and connected this process to Denoise Diffusion Implicit Models (DDIM) sampling for 2D images, while its improvement on 3D generation quality is still limited.
-            In this work, we propose Consistent Flow Distillation (CFD). We focus on the gradient-based sampling perspective and identify that a key in this process is to make the 2D image flow consistent on the 3D object with correct correspondence. To achieve this, we develop a multi-view consistent Gaussian noise on the 3D object, which can be rendered at different views to compute the flow gradient.
-            Our experiments demonstrate that with consistent flow, CFD shows a significant improvement over previous methods in text-to-3D generation.
+            Score Distillation Sampling (SDS) has made significant strides in distilling image-generative models for 3D generation. However, its maximum-likelihood-seeking behavior often leads to degraded visual quality, limiting its effectiveness in 3D applications. 
+            In this work, we propose Consistent Flow Distillation (CFD) to address these limitations. We begin by leveraging the gradient of the diffusion image sampling process to guide the 3D generation. From a gradient-based sampling perspective, we find that maintaining consistency in 2D image flows across different viewpoints is crucial for high-quality 3D generation. To achieve this, we introduce multi-view consistent Gaussian noise on the 3D object, which can be rendered from various angles to compute the flow gradient. 
+            Our experiments demonstrate that CFD, through consistent flows, significantly surpasses previous methods in text-to-3D generation.
           </p>
         </div>
       </div>
@@ -376,7 +375,7 @@
           </div>
           <div class="is-centered">
             <p>
-              <small>Visualization of different variables in a DDIM image generation process</small></p><br>
+              <small>Visualization of different variables in a DDPM (Diffusion SDE) image generation process</small></p><br>
           </div>
           <!-- colorA #b25c24 -->
           <!-- colorB #6b47b2 -->
