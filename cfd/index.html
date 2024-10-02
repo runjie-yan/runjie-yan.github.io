@@ -215,9 +215,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Score Distillation Sampling (SDS) has made significant strides in distilling image-generative models for 3D generation. However, its maximum-likelihood-seeking behavior often leads to degraded visual quality, limiting its effectiveness in 3D applications. 
-            In this work, we propose Consistent Flow Distillation (CFD) to address these limitations. We begin by leveraging the gradient of the diffusion image sampling process to guide the 3D generation. From a gradient-based sampling perspective, we find that maintaining consistency in 2D image flows across different viewpoints is crucial for high-quality 3D generation. To achieve this, we introduce multi-view consistent Gaussian noise on the 3D object, which can be rendered from various angles to compute the flow gradient. 
-            Our experiments demonstrate that CFD, through consistent flows, significantly surpasses previous methods in text-to-3D generation.
+            Score Distillation Sampling (SDS) has made significant strides in distilling image-generative models for 3D generation. However, its maximum-likelihood-seeking behavior often leads to degraded visual quality and diversity, limiting its effectiveness in 3D applications. In this work, we propose Consistent Flow Distillation (CFD), which addresses these limitations. We begin by leveraging the gradient of the diffusion ODE or SDE sampling process to guide the 3D generation. From the gradient-based sampling perspective, we find that the consistency of 2D image flows across different viewpoints is important for high-quality 3D generation. To achieve this, we introduce multi-view consistent Gaussian noise on the 3D object, which can be rendered from various viewpoints to compute the flow gradient. Our experiments demonstrate that CFD, through consistent flows, significantly outperforms previous methods in text-to-3D generation.
           </p>
         </div>
       </div>
@@ -268,7 +266,7 @@
 
 <!-- begin compare -->
 <!-- js script for this section is modifed from https://github.com/sds-bridge/sds-bridge.github.io -->
-<section class="section hero is-small is-light" id="comprision">
+<!-- <section class="section hero is-small is-light" id="comprision">
   <div class="container is-max-desktop">
     <div class="hero-body">
       <div class="columns is-centered">
@@ -281,19 +279,19 @@
       </div>
       <div class="container is-max-desktop">
         <div class="container has-text-centered">
-          <span style="font-size:1.1em;">Select a sample to view.</span><br><br>
+          <span style="font-size:1.1em;">Select a sample to view. Our CFD is photorealistic and has richer details.</span><br><br>
           <div class="select is-3 is-rounded">
             <select id="sect-2-sample-select" onchange="select_sample(this);">
+              <option value="strawberry" id="sect-2-sample-opt-strawberry"> Strawberry </option>
+              <option value="pineapple" id="sect-2-sample-opt-pineapple"> Pineapple </option>
+              <option value="chair" id="sect-2-sample-opt-chair"> Chair </option>
+              <option value="rose" id="sect-2-sample-opt-rose"> Rose </option>
               <option value="stone_castle" id="sect-2-sample-opt-stone_castle"> Stone Castle </option>
               <option value="cheesecake_castle" id="sect-2-sample-opt-cheesecake_castle"> Cheesecake Castle </option>
-              <option value="strawberry" id="sect-2-sample-opt-strawberry"> Strawberry </option>
               <option value="icecream" id="sect-2-sample-opt-icecream"> Icecream </option>
-              <option value="pineapple" id="sect-2-sample-opt-pineapple"> Pineapple </option>
               <option value="cottage" id="sect-2-sample-opt-cottage"> Cottage </option>
               <option value="tower" id="sect-2-sample-opt-tower"> Tower </option>
-              <option value="chair" id="sect-2-sample-opt-chair"> Chair </option>
               <option value="chest" id="sect-2-sample-opt-chair"> Chest </option>
-              <option value="rose" id="sect-2-sample-opt-rose"> Rose </option>
             </select>
           </div>
         </div>
@@ -341,7 +339,7 @@
           </div>
       </div>
     </div>
-</section>
+</section> -->
 <!-- end compare -->
 
 <!-- begin reformulation -->
@@ -446,14 +444,6 @@
           <div id="hero-list">
             <div id="tree">
               <video id="replay-video" autoplay muted loop playsinline>
-                <source src="./assets/videos/teaser_cut/a_mecha_composite.mp4" type="video/mp4">
-              </video>
-              <small>"A 3D model of mecha vampire girl chibi"</small>
-            </div>
-          </div>
-          <div id="hero-list">
-            <div id="tree">
-              <video id="replay-video" autoplay muted loop playsinline>
                 <source src="./assets/videos/teaser_cut/aa_chest_composite.mp4" type="video/mp4">
               </video>
               <small>"A treasure chest full of gold coins and jewels, high resolution, sharp"</small>
@@ -491,23 +481,17 @@
               <small>"A cowboy raccoon with a lasso"</small>
             </div>
           </div>
-          <br><br>
-
-          <h2 class="title is-3 publication-title has-text-centered">Text-to-3D Gallery</h2>
           <div id="hero-list">
             <div id="tree">
               <video id="replay-video" autoplay muted loop playsinline>
-                <source src="./assets/videos/teaser_cut/a_magic_girl.mp4" type="video/mp4">
+                <source src="./assets/videos/teaser_cut/a_mecha_composite.mp4" type="video/mp4">
               </video>
-              <small>"A manga magical girl with magic wand"</small>
-            </div>
-            <div id="tree">
-              <video id="replay-video" autoplay muted loop playsinline>
-                <source src="./assets/videos/teaser_cut/a_dragon_0.mp4" type="video/mp4">
-              </video>
-              <small>"A 3D anime-style dragon girl with shimmering scales, horns, and a confident expression"</small>
+              <small>"A 3D model of mecha vampire girl chibi"</small>
             </div>
           </div>
+          <br><br>
+
+          <h2 class="title is-3 publication-title has-text-centered">Text-to-3D Gallery</h2>
           <div id="hero-list">
             <div id="tree">
               <video id="replay-video" autoplay muted loop playsinline>
@@ -539,15 +523,29 @@
           <div id="hero-list">
             <div id="tree">
               <video id="replay-video" autoplay muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/a_dslr_0.mp4" type="video/mp4">
+              </video>
+              <small>"A 3D model of a DSLR camera, photography, box modeling, Maya"</small>
+            </div>
+            <div id="tree">
+              <video id="replay-video" autoplay muted loop playsinline>
+                <source src="./assets/videos/teaser_cut/a_magic_girl.mp4" type="video/mp4">
+              </video>
+              <small>"A manga magical girl with magic wand"</small>
+            </div>
+          </div>
+          <div id="hero-list">
+            <div id="tree">
+              <video id="replay-video" autoplay muted loop playsinline>
                 <source src="./assets/videos/teaser_cut/a_house_0.mp4" type="video/mp4">
               </video>
               <small>"A 3D model of a medieval house with grass, vines, stone, wood, and medieval decor"</small>
             </div>
             <div id="tree">
               <video id="replay-video" autoplay muted loop playsinline>
-                <source src="./assets/videos/teaser_cut/a_dslr_0.mp4" type="video/mp4">
+                <source src="./assets/videos/teaser_cut/a_dragon_0.mp4" type="video/mp4">
               </video>
-              <small>"A 3D model of a DSLR camera, photography, box modeling, Maya"</small>
+              <small>"A 3D anime-style dragon girl with shimmering scales, horns, and a confident expression"</small>
             </div>
           </div>
           <br><br>

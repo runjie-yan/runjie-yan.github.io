@@ -22,7 +22,7 @@ def edit_video(input_video_path, output_video_path):
     processed_frames = []
 
     for i, frame in enumerate(reader):
-        if i in [0, 15, 90]:
+        if i in [15, 45, 75, 105]:
             # Process the frame
             processed_frame_rgb, processed_frame_normal = process_frame(frame)
             
