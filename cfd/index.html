@@ -116,19 +116,19 @@
       <!-- display 2 video in one line -->
       <div id="hero-list">
         <div id="treet">
-          <video id="head-video-1" muted loop playsinline>
-            <source src="./assets/videos/head_teaser/ship.mp4" type="video/mp4">
+          <video id="head-video-1" autoplay muted loop playsinline>
+            <source id="head-video-1-src" src="./assets/videos/head_teaser/ship.mp4" type="video/mp4">
           </video>
           <small>"A pirate galleon with <div class="text-box" onclick="showDetails(event, 'details1')">...</div>"</small>
         </div>
         <div id="treet">
-          <video id="head-video-2" muted loop playsinline>
+          <video id="head-video-2" autoplay muted loop playsinline>
             <source src="./assets/videos/head_teaser/cat.mp4" type="video/mp4">
           </video>
           <small>"A cute cat covered by snow"</small>
         </div>
         <div id="treet">
-          <video id="head-video-3" muted loop playsinline>
+          <video id="head-video-3" autoplay muted loop playsinline>
             <source src="./assets/videos/head_teaser/spacestation.mp4" type="video/mp4">
           </video>
           <small>"A futuristic space station"</small>
@@ -143,36 +143,6 @@
       </div>
       
       <script>
-        
-        document.addEventListener("DOMContentLoaded", function() {
-          const video1 = document.getElementById('head-video-1');
-          const video2 = document.getElementById('head-video-2');
-          const video3 = document.getElementById('head-video-3');
-
-          let videosLoaded = 0;
-
-          function checkAllVideosLoaded() {
-              videosLoaded++;
-              if (videosLoaded === 3) {
-                  playAllVideos();
-              }
-          }
-
-          function playAllVideos() {
-              video1.play();
-              video2.play();
-              video3.play();
-          }
-
-          if (video1 && video2 && video3) {
-            video1.addEventListener('loadeddata', checkAllVideosLoaded);
-            video2.addEventListener('loadeddata', checkAllVideosLoaded);
-            video3.addEventListener('loadeddata', checkAllVideosLoaded);
-          } else {
-              console.error("One or more video elements are not found.");
-          }
-        });
-
         function showDetails(event, detailsId) {
           const details = document.getElementById(detailsId);
           const isVisible = details.style.display === 'block';
@@ -187,15 +157,15 @@
               // details.style.left = `${event.clientX}px`; // Use clientX for better positioning
               // details.style.top = `${event.clientY}px`;  // Use clientY for better positioning
           }
-      }
+        }
 
-      document.addEventListener('click', function(event) {
+        document.addEventListener('click', function(event) {
           if (!event.target.classList.contains('text-box') && !event.target.classList.contains('floating-box')) {
               const allDetails = document.querySelectorAll('.floating-box');
               allDetails.forEach(detail => detail.style.display = 'none');
           }
-      });
-    </script>
+        });
+      </script>
       <!-- <p class="has-text-centered">
         Left: render RGB image; Right: corresponding noise map.
       </p><br> -->
