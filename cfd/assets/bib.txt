@@ -1,9 +1,9 @@
-@misc{todo,
+@misc{yan2025consistentflowdistillationtextto3d,
       title={Consistent Flow Distillation for Text-to-3D Generation}, 
       author={Runjie Yan and Yinbo Chen and Xiaolong Wang},
       year={2025},
-      eprint={todo},
+      eprint={2501.05445},
       archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={todo}, 
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2501.05445}, 
 }
