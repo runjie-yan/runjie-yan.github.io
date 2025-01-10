@@ -50,15 +50,19 @@
           <h1 class="title is-1 publication-title">Consistent Flow Distillation<br>for Text-to-3D Generation</h1>
           <div class="is-size-4 publication-authors">
             <span class="author-block">
-              <a href="https://runjie-yan.github.io/">Runjie Yan</a><sup>1</sup>,</span>
+              <a href="https://runjie-yan.github.io/">Runjie Yan</a><sup>*1</sup>,</span>
             <span class="author-block">
-              <a href="https://yinboc.github.io/">Yinbo Chen</a><sup>1</sup>,</span>
+              <a href="https://yinboc.github.io/">Yinbo Chen</a><sup>*1</sup>,</span>
+              
             <span class="author-block">
                 <a href="https://xiaolonw.github.io/">Xiaolong Wang</a><sup>1</sup></span>
           </div>
           <div class="is-size-4 publication-authors">
-            <sup>1</sup>UC San Diego
+            <sup>*</sup>Equal contribution
             </div>
+            <div class="is-size-4 publication-authors">
+              <sup>1</sup>UC San Diego
+              </div>
         </div>
       </div>
     </div>
@@ -170,7 +174,7 @@
         Left: render RGB image; Right: corresponding noise map.
       </p><br> -->
       <h2 class="subtitle has-text-centered">
-        We can generate high-quality 3D models by distilling a pre-trained image Diffusion Models with the multi-view consistent Gaussian noise. With the consistent noise, the update direction of the 3D model is more consistent with the Diffusion PF-ODE, thus the generation results are of high-quality.
+        We can generate high-quality 3D models by distilling pre-trained image diffusion models with the multi-view consistent Gaussian noise. With the consistent noise, the update direction of the 3D model is more consistent with the diffusion PF-ODE, thus the generation results are of higher-quality.
       </h2>
     </div>
   </div>
@@ -548,5 +552,28 @@
   </div>
 </section>
 <!-- end reference -->
+
+
+<!-- begin bibtex -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code id="bibtex-text">
+      <!-- import text from ./assets/bib.txt -->
+    </code></pre>
+    <script>
+        // Function to fetch and display the contents of the text file
+        fetch('./assets/bib.txt')
+            .then(response => response.text())  // Convert the file content to text
+            .then(data => {
+                document.getElementById('bibtex-text').textContent = data;  // Insert text into the <pre> element
+            })
+            .catch(error => {
+                console.error('Error loading the file:', error);
+            });
+    </script>
+  </div>
+</section>
+<!-- end bibtex -->
 </body>
 </html>

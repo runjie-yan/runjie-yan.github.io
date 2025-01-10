@@ -1,10 +1,9 @@
-consider cite FSD for now:
-@misc{yan2024flowscoredistillationdiverse,
-      title={Flow Score Distillation for Diverse Text-to-3D Generation}, 
-      author={Runjie Yan and Kailu Wu and Kaisheng Ma},
-      year={2024},
-      eprint={2405.10988},
+@misc{todo,
+      title={Consistent Flow Distillation for Text-to-3D Generation}, 
+      author={Runjie Yan and Yinbo Chen and Xiaolong Wang},
+      year={2025},
+      eprint={todo},
       archivePrefix={arXiv},
       primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2405.10988}, 
+      url={todo}, 
 }
